@@ -1,0 +1,12 @@
+{"acct_id":"53d01ddf4fbbd6de0b662201", "transDate":"1375778304", "type":"deposit", "amt":"50.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662201", "transDate":"1375864562", "type":"deposit", "amt":"100.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662201", "transDate":"1375953075", "type":"withdrawal", "amt":"1000.00", "fee":"50.00"}
+{"acct_id":"53d01ddf4fbbd6de0b662202", "transDate":"1376039669", "type":"deposit", "amt":"200.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662202", "transDate":"1376126127", "type":"withdrawal", "amt":"30.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662202", "transDate":"1376212912", "type":"withdrawal", "amt":"80.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662203", "transDate":"1376385989", "type":"withdrawal", "amt":"50.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662203", "transDate":"1376472034", "type":"deposit", "amt":"1000.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662203", "transDate":"1376558179", "type":"deposit", "amt":"100.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662204", "transDate":"1376731426", "type":"deposit", "amt":"100.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662204", "transDate":"1376818413", "type":"deposit", "amt":"2000.00", "fee":""}
+{"acct_id":"53d01ddf4fbbd6de0b662204", "transDate":"1376904536", "type":"withdrawal", "amt":"100.00", "fee":""}
