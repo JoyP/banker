@@ -5,7 +5,7 @@ var Mongo = require('mongodb');
 function Transfer(o){
   this.name  = o.name;
   this.color = o.color;
-  this.value = parseInt(o.value);
+  this.amt   = parseInt(o.value);
 }
 
 Object.defineProperty(Transfer, 'collection', {

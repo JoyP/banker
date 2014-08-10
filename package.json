@@ -4,7 +4,7 @@
   "description": "Bank application",
   "main": "app/index.js",
   "scripts": {
-    "test": "moch test --recursive -R spec"
+    "test": "mocha test --recursive -R spec"
   },
   "repository": {
     "type": "git",
