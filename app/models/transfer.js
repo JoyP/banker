@@ -3,9 +3,11 @@
 var Mongo = require('mongodb');
 
 function Transfer(o){
-  this.name  = o.name;
-  this.color = o.color;
-  this.amt   = parseInt(o.value);
+  this.fromId     = o.fromId;
+  this.toId       = o.toIdd;
+  this.transDate  = new Date();
+  this.amt        = parseInt(o.amt);
+  this.fee        = parseInt(o.fee);
 }
 
 Object.defineProperty(Transfer, 'collection', {

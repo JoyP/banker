@@ -18,9 +18,6 @@ Object.defineProperty(Account, 'collection', {
   get: function(){return global.mongodb.collection('accounts');}
 });
 
-Account.prototype.transaction = function(trans,cb){
-};
-
 Account.create = function(o, cb){
   var a = new Account(o);
   Account.collection.save(a, cb);
@@ -40,6 +37,13 @@ Account.findById = function(id, cb){
   });
 };
 
+Account.prototype.transaction = function(o,query,cb){
+  var transAmt = o.type === 'deposit' ? (o.amt * 1) : (o.amt * -1);
+  var newBalance = (this.balance += transAmt);
+
+  this.transactions.push(o);
+  Account.collection.update({_id:this._id}, {$push:{transactions:o}, newBalance:newBalance}, cb);
+};
 
 module.exports = Account;
 

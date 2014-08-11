@@ -1,0 +1,20 @@
+extends ../shared/template
+block content
+  h2 Account List
+
+  table#accounts
+    thead
+      tr
+        th Name
+        th Photo
+        th Balance
+        th Type
+        th Opened
+    tbody
+      each account in accounts
+        tr(style='background-color:#{account.color}')
+          td= account.name
+          td: img(src=account.photo)
+          td= account.balance
+          td= account.type
+          td= moment(account.dateOpened).format('dddd, MMM Do YYYY')

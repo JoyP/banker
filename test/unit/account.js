@@ -71,20 +71,14 @@ describe('Account', function(){
 
   describe('#transaction', function(){
     it('should process a transaction and save it to the array', function(done){
-      var deposit = account.transaction(function(){
-        
+      var transaction = transaction({'type':'withdrawal','pin':'9836', 'amt':'100.00'},function(){
+        expect(transaction.type).to.equal('withdrawal');
+        expect(transaction.pin).to.equal('9836');
+        expect(transaction.amt).to.be(100.00);
       });
       done();
     });
   });
 
-//  describe('.query', function(){
-//    it('should show accounts', function(done){
-//      Account.query({}, function(err, accounts){
-//        expect(accounts).to.have.length(4);
-//        done();
-//      });
-//    });
-//  });
 });
 
