@@ -3,12 +3,12 @@
 
 'use strict';
 
-var expect    = require('chai').expect;
-var Account   = require('../../app/models/account');
-var dbConnect = require('../../app/lib/mongodb');
-var Mongo     = require('mongodb');
-var cp        = require('child_process');
-var db        = 'tm-test';
+var expect      = require('chai').expect;
+var Account     = require('../../app/models/account');
+var dbConnect   = require('../../app/lib/mongodb');
+var Mongo       = require('mongodb');
+var cp          = require('child_process');
+var db          = 'banker-test';
 
 describe('Account', function(){
   before(function(done){
@@ -35,13 +35,12 @@ describe('Account', function(){
       expect(a.type).to.equal('checking');
       expect(a.pin).to.equal('4563');
       expect(a.balance).to.equal(500);
-      expect(a.transactions).to.have.length(0);
     });
   });
 
   describe('.create', function(){
     it('should save a new Account object', function(done){
-      Account.create({name:'Rachel', color:'ff5050', photo:'http://www.npmjs.org', type:'checking', pin:'4563', balance:'1000', dateOpened:'04/15/2013'},function(err,account){
+      Account.create({name:'Rachel', color:'ff5050', photo:'http://www.npmjs.org', type:'checking', pin:'4563', balance:'1000'},function(err,account){
         expect(account._id).to.be.instanceof(Mongo.ObjectID);
         expect(account).to.be.instanceof(Account);
         expect(account.name).to.equal('Rachel');
@@ -51,32 +50,69 @@ describe('Account', function(){
     });
   });
 
-  describe('.findById', function(){
-    it('should find a account by its id - as string', function(done){
-      Account.findById('53d01ddf4fbbd6de0b662201', function(account){
-        expect(account.name).to.equal('Audrey');
-        expect(account).to.be.instanceof(Account);
+  describe('.all', function(){
+    it('should find all accounts', function(done){
+      Account.all(function(err, accounts){
+        expect(accounts).to.have.length(4);
         done();
       });
     });
+  });
 
-    it('should find a account by its id - as object id', function(done){
-      Account.findById(Mongo.ObjectID('53d01ddf4fbbd6de0b662203'), function(account){
-        expect(account.name).to.equal('Natalie');
+  describe('.findById', function(){
+    it('should find an account by its id - as string', function(done){
+      Account.findById('53d01ddf4fbbd6de0b662201', function(err, account){
+        expect(account.name).to.equal('Audrey');
         expect(account).to.be.instanceof(Account);
         done();
       });
     });
   });
 
-  describe('#transaction', function(){
-    it('should process a transaction and save it to the array', function(done){
-      var transaction = transaction({'type':'withdrawal','pin':'9836', 'amt':'100.00'},function(){
-        expect(transaction.type).to.equal('withdrawal');
-        expect(transaction.pin).to.equal('9836');
-        expect(transaction.amt).to.be(100.00);
+describe('#transaction', function(){
+    it('should create a transaction - deposit', function(done){
+      Account.findById('53d01ddf4fbbd6de0b662204', function(err, account){
+        account.transaction({type:'deposit', pin:'1834', amount:'100'}, function(err, transaction){
+          console.log(transaction);
+          expect(transaction.type).to.equal('deposit');
+          expect(transaction.amount).to.equal(100);
+          expect(transaction.fee).to.equal(0);
+          expect(transaction.accountId).to.be.instanceof(Mongo.ObjectID);
+          done();
+        });
       });
-      done();
+    });
+
+    it('should not create a transaction - bad pin', function(done){
+      Account.findById('53d01ddf4fbbd6de0b662201', function(err, account){
+        account.transaction({type:'deposit', pin:'2341', amount:'100'}, function(err, transaction){
+          expect(transaction).to.be.undefined;
+          done();
+        });
+      });
+    });
+
+    it('should create a transaction - withdraw', function(done){
+      Account.findById('53d01ddf4fbbd6de0b662201', function(err, account){
+        account.transaction({type:'withdraw', pin:'4387', amount:'100'}, function(err, transaction){
+          console.log(transaction);
+          expect(account.balance).to.equal(600);
+          expect(transaction.amount).to.equal(100);
+          expect(transaction.fee).to.equal(0);
+          done();
+        });
+      });
+    });
+
+    it('should create a transaction - withdraw with fee', function(done){
+      Account.findById('53d01ddf4fbbd6de0b662202', function(err, account){
+        account.transaction({type:'withdraw', pin:'9132', amount:'3000'}, function(err, transaction){
+          console.log(transaction);
+          expect(transaction.amount).to.equal(3000);
+          expect(transaction.fee).to.equal(50);
+          done();
+        });
+      });
     });
   });
 

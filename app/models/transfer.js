@@ -5,8 +5,8 @@ var Mongo = require('mongodb');
 function Transfer(o){
   this.fromId     = o.fromId;
   this.toId       = o.toIdd;
-  this.transDate  = new Date();
-  this.amt        = parseInt(o.amt);
+  this.date       = new Date();
+  this.amount     = parseInt(o.amount);
   this.fee        = parseInt(o.fee);
 }
 

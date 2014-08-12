@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('express-method-override');
 var home = require('../controllers/home');
 var accounts = require('../controllers/accounts');
-var transfers = require('../controllers/transfers');
+//var transfers = require('../controllers/transfers');
 
 module.exports = function(app, express){
   app.use(morgan('dev'));
@@ -22,9 +22,9 @@ module.exports = function(app, express){
   app.post('/accounts', accounts.create);
   app.get('/accounts', accounts.index);
 
-  app.get('/transfers/new', transfers.init);
-  app.post('/transfers', transfers.create);
-  app.get('/transfers', transfers.index);
+ // app.get('/transfers/new', transfers.init);
+ // app.post('/transfers', transfers.create);
+ // app.get('/transfers', transfers.index);
 
   console.log('Pipeline Configured');
 };
